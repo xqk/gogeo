@@ -209,6 +209,9 @@ func aloneGroupGeoMapFormatFromRootAdCode(groupGeoMap map[string]*GeoMap, dirPat
 	groupGeoMap[rootAdCode] = rootMap
 
 	for _, adCode := range rootMap.AdCodes {
+		if adCode == rootAdCode {
+			continue
+		}
 		newGroupGeoMap, err1 := aloneGroupGeoMapFormatFromRootAdCode(groupGeoMap, dirPath, adCode, keys, ff)
 		if err1 != nil {
 			continue

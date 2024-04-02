@@ -138,12 +138,12 @@ func TestMasterGeo_FindLoc(t *testing.T) {
 		return ks[0] + "-" + ks[1] + "-" + ks[2]
 	}
 
-	masterGeo, err := NewMasterGeo("testdata", "100000", []string{"name", "level", "adcode"}, ff, "-")
+	masterGeo, err := NewMasterGeo("/Users/xqk/Downloads/map-files/full", "100000", []string{"name", "level", "adcode"}, ff, "-")
 	if err != nil {
 		t.Error(err)
 		return
 	}
-
+	fmt.Println("加载完毕")
 	locs := masterGeo.FindLoc(45.849582, 127.06789)
 	for _, loc := range locs {
 		fmt.Println(loc)
