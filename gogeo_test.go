@@ -144,7 +144,7 @@ func TestMasterGeo_FindLoc(t *testing.T) {
 		return
 	}
 
-	locs := masterGeo.FindLoc(45.668664, 126.373347)
+	locs := masterGeo.FindLoc(45.849582, 127.06789)
 	for _, loc := range locs {
 		fmt.Println(loc)
 	}

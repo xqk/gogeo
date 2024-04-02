@@ -1,7 +1,6 @@
 package gogeo
 
 import (
-	"errors"
 	"fmt"
 	geo "github.com/kellydunn/golang-geo"
 	geojson "github.com/paulmach/go.geojson"
@@ -105,9 +104,11 @@ func getPolyMap(data []byte, keys []string, ff func(ks []string) string) (map[st
 	for _, v := range fc.Features {
 		pKeys := make([]string, len(keys))
 		var adCode string
+		var deletionKey bool
 		for i, key := range keys {
 			if _, ok := v.Properties[key]; !ok {
-				return nil, nil, errors.New(fmt.Sprintf("file has no key:%v in some features", key))
+				deletionKey = true
+				//return nil, nil, errors.New(fmt.Sprintf("file has no key:%v in some features", key))
 			}
 			if key == "adcode" {
 				adCode = strconv.FormatInt(int64(v.Properties["adcode"].(float64)), 10)
@@ -115,6 +116,9 @@ func getPolyMap(data []byte, keys []string, ff func(ks []string) string) (map[st
 			} else {
 				pKeys[i] = v.Properties[key].(string)
 			}
+		}
+		if deletionKey {
+			continue
 		}
 		if adCode != "" {
 			adCodes = append(adCodes, adCode)
